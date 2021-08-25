@@ -1,3 +1,15 @@
+enum Constant {
+    PI,
+}
+
+impl Constant {
+    fn value(&self) -> f64 {
+        match *self {
+            Constant::PI => 3.14,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub enum ShapeEnum {
     Rectangle(f64, f64),
@@ -25,14 +37,14 @@ impl Calculate for Shape {
     fn perimeter(&self) -> f64 {
         match self.shape {
             ShapeEnum::Rectangle(a, b) => 2.0 * (a + b),
-            ShapeEnum::Circle(r) => 2.0 * 3.14 * r,
+            ShapeEnum::Circle(r) => 2.0 * Constant::PI.value() * r,
             ShapeEnum::Triangle(a, b, c) => a + b + c,
         }
     }
     fn area(&self) -> f64 {
         match self.shape {
             ShapeEnum::Rectangle(a, b) => a * b,
-            ShapeEnum::Circle(r) => 3.14 * r * r,
+            ShapeEnum::Circle(r) => Constant::PI.value() * r * r,
             ShapeEnum::Triangle(a, b, c) => {
                 let p = (a + b + c) / 2.0;
                 (p * (p - a) * (p - b) * (p - c)).sqrt()
